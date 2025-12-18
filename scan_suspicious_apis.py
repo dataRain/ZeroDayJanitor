@@ -141,7 +141,7 @@ def main() -> int:
             continue
 
     out_path = Path(args.out) if args.out else Path(f"suspicious_apis_report_{now_stamp()}.txt")
-    rep = Reporter(out_path, color=(not args.no_color))
+    rep = Reporter(out_path, color=(not args.no_color), no_banner=args.no_banner)
 
     rep.header(f"Suspicious API / Pattern Scan — root={root}")
     rep.emit(f"{C.DIM}Rules enabled: {len(compiled_rules)} (disable via [suspicious_apis].disable_rule_ids){C.RESET}")

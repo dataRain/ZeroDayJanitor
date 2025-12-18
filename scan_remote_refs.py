@@ -128,7 +128,7 @@ def main() -> int:
     ignore_line_rx = compile_regex_list(cfg.get("ignore_line_regex", []))
 
     out_path = Path(args.out) if args.out else Path(f"remote_refs_report_{now_stamp()}.txt")
-    rep = Reporter(out_path, color=(not args.no_color))
+    rep = Reporter(out_path, color=(not args.no_color), no_banner=args.no_banner)
 
     rep.header(f"Remote Reference Scan — root={root}")
     if not root.exists():

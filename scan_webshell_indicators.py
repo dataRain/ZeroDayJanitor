@@ -106,7 +106,7 @@ def main() -> int:
             continue
 
     out_path = Path(args.out) if args.out else Path(f"webshell_report_{now_stamp()}.txt")
-    rep = Reporter(out_path, color=(not args.no_color))
+    rep = Reporter(out_path, color=(not args.no_color), no_banner=args.no_banner)
 
     rep.header(f"Webshell Indicator Scan — root={root}")
     rep.emit(f"{C.DIM}Rules enabled: {len(compiled_rules)} (disable via [webshells].disable_rule_ids){C.RESET}")

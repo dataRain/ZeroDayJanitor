@@ -33,6 +33,8 @@ BANNER = """
                                     https://github.com/dataRain
     """
 
+NOBANNER = "ZeroDayJanitor v1.0   -  by Marcel Goulart  -  https://github.com/dataRain"
+
 class C:
     RESET = "\x1b[0m"
     BOLD = "\x1b[1m"
@@ -166,9 +168,10 @@ class Finding:
 SEV_ORDER = {"LOW": 1, "MEDIUM": 2, "HIGH": 3}
 
 class Reporter:
-    def __init__(self, out_path: Path, color: bool = True):
+    def __init__(self, out_path: Path, color: bool = True, no_banner: bool = False):
         self.out_path = out_path
         self.color = color
+        self.no_banner = no_banner
         self.out_path.parent.mkdir(parents=True, exist_ok=True)
         self.f = self.out_path.open("w", encoding="utf-8")
         self.write_plain(f"Report: {self.out_path.name}\nGenerated: {_dt.datetime.now().isoformat()}\n")
@@ -194,11 +197,13 @@ class Reporter:
     def header(self, title: str):
         global _BANNER_PRINTED
         if not _BANNER_PRINTED:
-            # Print banner to terminal only (not to file)
-            #print(BANNER)
-            for line in BANNER.splitlines():
-                self.emit(line)
+            if self.no_banner:
+                self.emit(f"{C.DIM}{NOBANNER}{C.RESET}")
+            else:
+                for line in BANNER.splitlines():
+                    self.emit(line)
             _BANNER_PRINTED = True
+
         self.emit(f"{C.BOLD}{C.CYAN}{title}{C.RESET}")
 
     def ok(self, msg: str):
@@ -224,4 +229,5 @@ def make_arg_parser(tool_name: str) -> argparse.ArgumentParser:
     p.add_argument("--no-color", action="store_true", help="Disable ANSI colors")
     p.add_argument("--fail-on", choices=["none", "low", "medium", "high"], default="high",
                    help="Exit non-zero if findings at/above severity exist")
+    p.add_argument("--no-banner", action="store_true", help="Disable ASCII banner; print a single-line header instead.")
     return p

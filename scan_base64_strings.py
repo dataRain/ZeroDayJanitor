@@ -73,7 +73,7 @@ def main() -> int:
     cred_kw_rx = compile_regex_list(cfg.get("credential_keyword_regex", []))
 
     out_path = Path(args.out) if args.out else Path(f"base64_report_{now_stamp()}.txt")
-    rep = Reporter(out_path, color=(not args.no_color))
+    rep = Reporter(out_path, color=(not args.no_color), no_banner=args.no_banner)
 
     rep.header(f"Base64 Decode Scan — root={root}")
     if not root.exists():
