@@ -1,0 +1,74 @@
+[general]
+exclude_dirs = [
+  ".git", ".vs", ".idea",
+  "bin", "obj", "TestResults", "packages", "artifacts",
+  "node_modules", "wwwroot/lib",
+  ".vscode", ".devcontainer",
+  "venv", ".venv", "__pycache__", "dist", "build", ".next"
+]
+
+exclude_globs = [
+  "*.min.js", "*.map", "*.lock",
+  "*.png", "*.jpg", "*.jpeg", "*.gif", "*.pdf",
+  "*.zip", "*.tar", "*.gz", "*.7z",
+  "*.dll", "*.exe"
+]
+
+include_exts = [
+  ".cs", ".csx",
+  ".csproj", ".sln", ".props", ".targets", ".nuspec",
+  ".config", ".json", ".xml", ".yml", ".yaml",
+  ".aspx", ".ascx", ".master", ".cshtml", ".razor",
+  ".ps1", ".sh", ".bat", ".cmd",
+  "Dockerfile", ".dockerfile"
+]
+
+max_file_size_mb = 8
+
+[remote_refs]
+whitelist_substrings = [
+  "localhost", "127.0.0.1", "0.0.0.0", "::1",
+  "mycompany.internal",
+  "host.docker.internal",
+  "catalogbaseurltobereplaced"
+]
+
+whitelist_regex = ["^https://api\\.mycompany\\.com/","^https://ajax\\.aspnetcdn\\.com/","^http://test\\.com/",]
+
+ignore_line_regex = [
+  "#\\s*nosec", "pragma:\\s*allow-remote", "ALLOW_REMOTE_OK",
+
+  # JSON/YAML schema pointers (non-runtime metadata)
+  "(?i)\\$schema\\s*[:=]",
+  "(?i)yaml-language-server:\\s*\\$schema",
+
+  # .NET / ARM “version” fields that look like IPv4
+  "(?i)\\bcontentVersion\\b",
+  "(?i)\\bVersion\\s*=\\s*\\d+\\.\\d+\\.\\d+\\.\\d+",
+
+  # Common dev bind setting that looks like a URL
+  "(?i)ASPNETCORE_URLS\\s*=\\s*http://\\+:",
+  
+  # Avoid the 'head::after' / '::before' CSS pseudo-element false positives
+  "(?i)::(after|before)\\b"
+]
+
+
+
+[suspicious_apis]
+# Allow-list by line regex (skip findings on lines matching any of these)
+allow_line_regex = ["#\\s*nosec", "ALLOW_SUSPICIOUS_OK"]
+# Optionally disable built-in rule IDs (see script header for IDs)
+disable_rule_ids = []
+
+[listening_ports]
+allow_line_regex = ["#\\s*nosec", "ALLOW_PORT_OK"]
+disable_rule_ids = []
+# Optional: if you *expect* the app to listen on these ports and want to downgrade those lines:
+whitelist_ports = [80, 443, 5000, 5001]
+
+[webshells]
+allow_line_regex = ["#\\s*nosec", "ALLOW_WEBSHELL_OK"]
+disable_rule_ids = []
+suspicious_param_name_regex = ["(?i)\\b(cmd|command|exec|shell|powershell|pwsh|payload|upload|file|path)\\b"]
+
