@@ -33,7 +33,6 @@ BANNER = """
                                     https://github.com/dataRain
     """
 
-NOBANNER = "ZeroDayJanitor v1.0   -  by Marcel Goulart  -  https://github.com/dataRain"
 
 class C:
     RESET = "\x1b[0m"
@@ -45,6 +44,7 @@ class C:
     CYAN = "\x1b[36m"
     MAGENTA = "\x1b[35m"
 
+NOBANNER = C.BOLD + C.MAGENTA + "ZeroDayJanitor v1.0   -  by Marcel Goulart  -  https://github.com/dataRain" + C.RESET
 
 def strip_ansi(s: str) -> str:
     return ANSI_RE.sub("", s)
