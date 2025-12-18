@@ -15,6 +15,7 @@ All scanners accept common flags defined in `scanlib.py`:
 - `--fail-on`: Lowest severity (`low`, `medium`, or `high`) that will exit with a non-zero status.
 - `--out`: Optional report file path (a timestamped filename is used if omitted).
 - `--no-color`: Disable ANSI colors in output.
+- `--no-banner`: Disable the banner for a more streamlined output.
 
 ## Configuration (`scanner_config.toml`)
 The shared TOML file controls filtering, whitelisting, and per-scanner behavior:
