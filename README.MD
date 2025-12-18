@@ -69,4 +69,4 @@ python3 scan_webshell_indicators.py --root /path/to/source --config scanner_conf
 ```
 
 ## Author
-Speed Triage Maintainers
+Marcel Goulart
